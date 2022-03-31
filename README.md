@@ -1,6 +1,6 @@
 ### About the application
 
-The purpose of this application is to create a simple project based on JavaScirpt and CSS. Applicattion is redy to use ech time under this link `https://a-dubaj.github.io/RandomMeal/`
+The purpose of this application is to create a simple project based on JavaScript and CSS. Application is ready to use each time under this link: `https://a-dubaj.github.io/RandomMeal/`
 
 ### Use Case
 
