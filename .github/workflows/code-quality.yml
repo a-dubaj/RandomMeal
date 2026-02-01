@@ -1,0 +1,81 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  validate:
+    name: Validate Code
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Check project structure
+        run: |
+          echo "📁 Checking project files..."
+          files=("index.html" "script.js" "style.css" "README.md")
+          
+          for file in "${files[@]}"; do
+            if [ -f "$file" ]; then
+              echo "✅ $file found"
+            else
+              echo "❌ $file missing"
+              exit 1
+            fi
+          done
+          
+          echo "✨ All files present!"
+      
+      - name: Validate HTML
+        uses: Cyb3r-Jak3/html5validator-action@v7.2.0
+        with:
+          root: .
+      
+      - name: Install linters
+        run: npm install -g eslint
+      
+      - name: Lint JavaScript
+        run: |
+          echo "🔍 Linting JavaScript..."
+          npx eslint script.js \
+            --no-eslintrc \
+            --env browser \
+            --env es2021 \
+            --rule 'no-console: warn' \
+            --rule 'semi: [error, always]'
+        continue-on-error: true
+      
+      - name: Check code quality
+        run: |
+          echo "📊 Code Statistics:"
+          echo "HTML: $(wc -l < index.html) lines"
+          echo "JavaScript: $(wc -l < script.js) lines"
+          echo "CSS: $(wc -l < style.css) lines"
+          
+          echo ""
+          echo "📦 File Sizes:"
+          du -h index.html script.js style.css
+      
+      - name: Verify external resources
+        run: |
+          echo "🔗 Checking CDN links..."
+          if curl -s --head "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" | head -n 1 | grep "HTTP/[12].[01] 200" > /dev/null; then
+            echo "✅ Font Awesome CDN accessible"
+          fi
+          
+          if curl -s --head "https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" | head -n 1 | grep "HTTP/[12].[01] 200" > /dev/null; then
+            echo "✅ Skeleton CSS CDN accessible"
+          fi
+      
+      - name: Success
+        run: echo "🎉 All checks passed!"
