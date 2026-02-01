@@ -56,17 +56,6 @@ li {
 	height: 100%;
 }
 
-
-
-
-
-
-
-
-
-
-
-/* SOCIAL PANEL CSS */
 .social-panel-container {
 	position: fixed;
 	right: 0;
@@ -79,10 +68,10 @@ li {
 	transform: translateX(-10px);
 }
 
-.social-panel {	
+.social-panel {
 	background-color: #fff;
 	border-radius: 16px;
-	box-shadow: 0 16px 31px -17px rgba(0,31,97,0.6);
+	box-shadow: 0 16px 31px -17px rgba(0, 31, 97, 0.6);
 	border: 5px solid #001F61;
 	display: flex;
 	flex-direction: column;
@@ -90,7 +79,7 @@ li {
 	align-items: center;
 	font-family: 'Muli';
 	position: relative;
-	height: 169px;	
+	height: 169px;
 	width: 370px;
 	max-width: calc(100% - 10px);
 }
@@ -139,9 +128,9 @@ li {
 
 .social-panel h4 {
 	margin: 20px 0;
-	color: #97A5CE;	
-	font-family: 'Muli';	
-	font-size: 14px;	
+	color: #97A5CE;
+	font-family: 'Muli';
+	font-size: 14px;
 	line-height: 18px;
 	text-transform: uppercase;
 }
@@ -222,11 +211,10 @@ button.floating-btn:hover {
 }
 
 @media screen and (max-width: 480px) {
-
 	.social-panel-container.visible {
 		transform: translateX(0px);
 	}
-	
+
 	.floating-btn {
 		right: 10px;
 	}
